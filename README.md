@@ -30,7 +30,7 @@
 
 ```bash
 # Clone o repositório
-git clone git clone https://github.com/kamilacondefs/tess-agents-creator.gitt
+git clone https://github.com/kamilacondefs/tess-agents-creator.git
 cd tess-agents-creator
 
 # Instale as dependências
