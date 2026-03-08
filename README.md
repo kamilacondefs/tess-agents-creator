@@ -30,8 +30,8 @@
 
 ```bash
 # Clone o repositório
-https://github.com/kamilacondefs/tess-agents-creator.git
-tess-agents-creator
+git clone git clone https://github.com/kamilacondefs/tess-agents-creator.gitt
+cd tess-agents-creator
 
 # Instale as dependências
 npm install
