@@ -1,5 +1,5 @@
 import { useSquad } from '@/contexts/SquadContext';
-import { Bot, Plus, ChevronRight } from 'lucide-react';
+import { Plus, ChevronRight } from 'lucide-react';
 
 export function NestSidebar() {
   const { squad, getMainAgents, getSubAgents, selectedAgentId, setSelectedAgentId, addAgent } = useSquad();
