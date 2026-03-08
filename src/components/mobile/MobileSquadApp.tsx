@@ -1,9 +1,39 @@
 import { useSquad } from '@/contexts/SquadContext';
-import { Plus, ChevronRight, Settings, Play, Layers, Users, Bot } from 'lucide-react';
+import { Plus, ChevronRight, Settings, Play, Layers, Users } from 'lucide-react';
 import tessLogo from '@/assets/tess-light-logo.svg';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { LLM_MODELS, AGENT_ROLES } from '@/types/squad';
+
+function TessPattern() {
+  return (
+    <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="tess-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.8" />
+        </pattern>
+        <pattern id="tess-diag" width="20" height="20" patternUnits="userSpaceOnUse">
+          <path d="M 0 20 L 20 0" fill="none" stroke="currentColor" strokeWidth="0.5" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#tess-grid)" />
+      <rect width="100%" height="100%" fill="url(#tess-diag)" />
+    </svg>
+  );
+}
+
+function FloatingGraphic({ className }: { className?: string }) {
+  return (
+    <div className={`absolute pointer-events-none ${className}`}>
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="text-foreground opacity-[0.06]">
+        <circle cx="24" cy="24" r="23" stroke="currentColor" strokeWidth="1" />
+        <circle cx="24" cy="24" r="12" stroke="currentColor" strokeWidth="0.5" />
+        <line x1="24" y1="1" x2="24" y2="47" stroke="currentColor" strokeWidth="0.5" />
+        <line x1="1" y1="24" x2="47" y2="24" stroke="currentColor" strokeWidth="0.5" />
+      </svg>
+    </div>
+  );
+}
 
 export function MobileSquadApp() {
   const { squad, getMainAgents, getSubAgents, selectedAgentId, setSelectedAgentId, addAgent, getSelectedAgent } = useSquad();
@@ -12,58 +42,65 @@ export function MobileSquadApp() {
   const [activeTab, setActiveTab] = useState<'hierarchy' | 'config'>('hierarchy');
 
   return (
-    <div className="flex flex-col h-full bg-background">
+    <div className="flex flex-col h-full bg-background relative overflow-hidden">
+      {/* Background pattern */}
+      <TessPattern />
+
+      {/* Floating graphics */}
+      <FloatingGraphic className="top-[120px] right-[-10px]" />
+      <FloatingGraphic className="bottom-[200px] left-[-8px]" />
+
       {/* Mobile Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-card">
+      <div className="relative z-10 flex items-center justify-between px-4 py-3 border-b border-border bg-card/90 backdrop-blur-sm">
         <div className="flex items-center gap-2">
-          <img src={tessLogo} alt="TESS" className="h-4 w-auto" />
-          <span className="text-muted-foreground text-[10px]">/</span>
-          <span className="text-muted-foreground text-[10px] font-medium">SQUADS</span>
+          <img src={tessLogo} alt="TESS" className="h-5 w-auto" />
+          <span className="text-muted-foreground text-xs">/</span>
+          <span className="text-muted-foreground text-xs font-semibold tracking-widest">SQUADS</span>
         </div>
-        <button className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-foreground text-background text-[11px] font-medium">
-          <Play className="w-3 h-3" />
+        <button className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-foreground text-background text-xs font-semibold">
+          <Play className="w-3.5 h-3.5" />
           Executar
         </button>
       </div>
 
       {/* Squad name */}
-      <div className="px-4 py-2.5 border-b border-border bg-card">
-        <p className="font-semibold text-sm text-foreground">{squad.name}</p>
-        <p className="text-[11px] text-muted-foreground">
+      <div className="relative z-10 px-4 py-3 border-b border-border bg-card/90 backdrop-blur-sm">
+        <p className="font-bold text-base text-foreground">{squad.name}</p>
+        <p className="text-xs text-muted-foreground mt-0.5">
           {mainAgents.length} principal · {squad.agents.length - mainAgents.length} sub
         </p>
       </div>
 
       {/* Tab bar */}
-      <div className="flex border-b border-border bg-card">
+      <div className="relative z-10 flex border-b border-border bg-card/90 backdrop-blur-sm">
         <button
           onClick={() => setActiveTab('hierarchy')}
-          className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 text-xs font-medium transition-colors border-b-2 ${
+          className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-semibold transition-colors border-b-2 ${
             activeTab === 'hierarchy'
               ? 'border-foreground text-foreground'
               : 'border-transparent text-muted-foreground'
           }`}
         >
-          <Layers className="w-3.5 h-3.5" />
+          <Layers className="w-4 h-4" />
           Hierarquia
         </button>
         <button
           onClick={() => setActiveTab('config')}
-          className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 text-xs font-medium transition-colors border-b-2 ${
+          className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-semibold transition-colors border-b-2 ${
             activeTab === 'config'
               ? 'border-foreground text-foreground'
               : 'border-transparent text-muted-foreground'
           }`}
         >
-          <Settings className="w-3.5 h-3.5" />
+          <Settings className="w-4 h-4" />
           Configurar
         </button>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="relative z-10 flex-1 overflow-y-auto">
         {activeTab === 'hierarchy' ? (
-          <div className="p-4 tess-dot-pattern min-h-full">
+          <div className="p-4 min-h-full">
             {mainAgents.length === 0 ? (
               <div className="flex items-center justify-center h-full min-h-[400px]">
                 <motion.div
@@ -71,18 +108,18 @@ export function MobileSquadApp() {
                   animate={{ opacity: 1, y: 0 }}
                   className="text-center"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mx-auto mb-3">
-                    <Layers className="w-5 h-5 text-foreground" />
+                  <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center mx-auto mb-4">
+                    <Layers className="w-6 h-6 text-foreground" />
                   </div>
-                  <h2 className="text-sm font-semibold text-foreground mb-1">Monte seu Squad</h2>
-                  <p className="text-xs text-muted-foreground mb-4 max-w-[240px] mx-auto">
+                  <h2 className="text-base font-bold text-foreground mb-1.5">Monte seu Squad</h2>
+                  <p className="text-sm text-muted-foreground mb-5 max-w-[260px] mx-auto leading-relaxed">
                     Adicione agentes para criar sua estrutura de IA
                   </p>
                   <button
                     onClick={() => addAgent(null)}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-foreground text-background text-xs font-medium"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-foreground text-background text-sm font-semibold"
                   >
-                    <Plus className="w-3.5 h-3.5" />
+                    <Plus className="w-4 h-4" />
                     Adicionar Agente
                   </button>
                 </motion.div>
@@ -92,9 +129,9 @@ export function MobileSquadApp() {
                 {/* Add button */}
                 <button
                   onClick={() => addAgent(null)}
-                  className="w-full flex items-center justify-center gap-1.5 py-2 rounded-lg border border-dashed border-border text-xs font-medium text-muted-foreground hover:bg-secondary transition-colors"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-dashed border-border text-sm font-semibold text-muted-foreground hover:bg-secondary transition-colors"
                 >
-                  <Plus className="w-3 h-3" />
+                  <Plus className="w-4 h-4" />
                   Agente Principal
                 </button>
 
@@ -112,29 +149,29 @@ export function MobileSquadApp() {
                           setSelectedAgentId(agent.id);
                           setActiveTab('config');
                         }}
-                        className={`w-full text-left rounded-xl border-2 transition-all bg-card p-3 ${
+                        className={`w-full text-left rounded-xl border-2 transition-all bg-card p-4 ${
                           selectedAgentId === agent.id
                             ? 'border-foreground tess-shadow-elevated'
                             : 'border-border tess-shadow-card'
                         }`}
                       >
-                        <div className="flex items-center gap-2.5">
+                        <div className="flex items-center gap-3">
                           <div
-                            className="w-2 h-2 rounded-full flex-shrink-0"
+                            className="w-3 h-3 rounded-full flex-shrink-0"
                             style={{ backgroundColor: agent.color }}
                           />
                           <div className="flex-1 min-w-0">
-                            <p className="text-xs font-semibold text-foreground truncate">{agent.name}</p>
-                            <p className="text-[10px] text-muted-foreground">{role?.label}</p>
+                            <p className="text-sm font-bold text-foreground truncate">{agent.name}</p>
+                            <p className="text-xs text-muted-foreground mt-0.5">{role?.label}</p>
                           </div>
-                          <span className="text-[10px] text-muted-foreground bg-secondary px-1.5 py-0.5 rounded">
+                          <span className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded-lg font-medium">
                             {model?.name || 'N/A'}
                           </span>
                         </div>
                         {subs.length > 0 && (
-                          <div className="flex items-center gap-1 mt-2 pt-2 border-t border-border">
-                            <Users className="w-3 h-3 text-muted-foreground" />
-                            <span className="text-[10px] text-muted-foreground">
+                          <div className="flex items-center gap-1.5 mt-3 pt-3 border-t border-border">
+                            <Users className="w-3.5 h-3.5 text-muted-foreground" />
+                            <span className="text-xs text-muted-foreground font-medium">
                               {subs.length} subagente{subs.length !== 1 ? 's' : ''}
                             </span>
                           </div>
@@ -151,19 +188,19 @@ export function MobileSquadApp() {
                               setSelectedAgentId(sub.id);
                               setActiveTab('config');
                             }}
-                            className={`w-full text-left ml-4 mt-1.5 rounded-lg border p-2.5 transition-all bg-card ${
+                            className={`w-full text-left ml-4 mt-2 rounded-xl border p-3 transition-all bg-card ${
                               selectedAgentId === sub.id ? 'border-foreground' : 'border-border'
                             }`}
                             style={{ width: 'calc(100% - 16px)' }}
                           >
-                            <div className="flex items-center gap-2">
-                              <ChevronRight className="w-3 h-3 text-muted-foreground flex-shrink-0" />
+                            <div className="flex items-center gap-2.5">
+                              <ChevronRight className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
                               <div
-                                className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                                className="w-2 h-2 rounded-full flex-shrink-0"
                                 style={{ backgroundColor: sub.color }}
                               />
-                              <span className="text-[11px] font-medium text-foreground truncate">{sub.name}</span>
-                              <span className="text-[9px] text-muted-foreground ml-auto">{subRole?.label}</span>
+                              <span className="text-sm font-semibold text-foreground truncate">{sub.name}</span>
+                              <span className="text-xs text-muted-foreground ml-auto">{subRole?.label}</span>
                             </div>
                           </button>
                         );
@@ -178,35 +215,35 @@ export function MobileSquadApp() {
           /* Config tab */
           <div className="p-4">
             {selectedAgent ? (
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: selectedAgent.color }} />
-                  <h3 className="text-sm font-semibold text-foreground">{selectedAgent.name}</h3>
+              <div className="space-y-5">
+                <div className="flex items-center gap-2.5 mb-3">
+                  <div className="w-4 h-4 rounded-full" style={{ backgroundColor: selectedAgent.color }} />
+                  <h3 className="text-base font-bold text-foreground">{selectedAgent.name}</h3>
                 </div>
 
                 {/* Name */}
                 <div>
-                  <label className="block text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">
                     Nome
                   </label>
                   <input
                     type="text"
                     value={selectedAgent.name}
                     readOnly
-                    className="w-full px-3 py-2 rounded-lg border border-input bg-background text-xs text-foreground"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-input bg-background text-sm text-foreground font-medium"
                   />
                 </div>
 
                 {/* Role */}
                 <div>
-                  <label className="block text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">
                     Papel
                   </label>
-                  <div className="grid grid-cols-2 gap-1">
+                  <div className="grid grid-cols-2 gap-1.5">
                     {AGENT_ROLES.map(r => (
                       <div
                         key={r.value}
-                        className={`flex items-center gap-1 px-2 py-1.5 rounded-lg border text-[10px] font-medium ${
+                        className={`flex items-center gap-1.5 px-3 py-2 rounded-xl border text-xs font-semibold ${
                           selectedAgent.role === r.value
                             ? 'border-foreground bg-foreground text-background'
                             : 'border-border text-foreground'
@@ -221,20 +258,20 @@ export function MobileSquadApp() {
 
                 {/* Model */}
                 <div>
-                  <label className="block text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">
                     Modelo LLM
                   </label>
-                  <div className="px-3 py-2 rounded-lg border border-input bg-secondary text-xs text-foreground">
+                  <div className="px-3.5 py-2.5 rounded-xl border border-input bg-secondary text-sm text-foreground font-medium">
                     {LLM_MODELS.find(m => m.id === selectedAgent.llmModelId)?.name || 'N/A'}
                   </div>
                 </div>
 
                 {/* Prompt preview */}
                 <div>
-                  <label className="block text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">
                     Prompt de Sistema
                   </label>
-                  <div className="px-3 py-2 rounded-lg border border-input bg-secondary text-[11px] text-muted-foreground h-[80px] overflow-hidden">
+                  <div className="px-3.5 py-2.5 rounded-xl border border-input bg-secondary text-sm text-muted-foreground h-[90px] overflow-hidden leading-relaxed">
                     {selectedAgent.systemPrompt || 'Nenhum prompt definido...'}
                   </div>
                 </div>
@@ -242,11 +279,11 @@ export function MobileSquadApp() {
             ) : (
               <div className="flex items-center justify-center h-[400px]">
                 <div className="text-center">
-                  <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center mx-auto mb-2">
-                    <span className="text-base">🎯</span>
+                  <div className="w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center mx-auto mb-3">
+                    <span className="text-lg">🎯</span>
                   </div>
-                  <p className="text-xs font-medium text-foreground">Selecione um agente</p>
-                  <p className="text-[10px] text-muted-foreground mt-0.5">Toque em um card na aba Hierarquia</p>
+                  <p className="text-sm font-bold text-foreground">Selecione um agente</p>
+                  <p className="text-xs text-muted-foreground mt-1">Toque em um card na aba Hierarquia</p>
                 </div>
               </div>
             )}
