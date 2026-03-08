@@ -78,8 +78,6 @@
     --sidebar-accent-foreground: 0 0% 8%;
     --sidebar-border: 0 0% 93%;
     --sidebar-ring: 0 0% 8%;
-
-    font-size: 18px;
   }
 }
 
@@ -92,17 +90,7 @@
     @apply bg-background text-foreground antialiased;
     font-family: 'Kamerik205', system-ui, -apple-system, sans-serif;
     font-weight: 400;
-    font-size: 1rem;
-    line-height: 1.6;
   }
-
-  h1 { font-size: 2rem; font-weight: 700; }
-  h2 { font-size: 1.5rem; font-weight: 700; }
-  h3 { font-size: 1.25rem; font-weight: 700; }
-  h4 { font-size: 1.1rem; font-weight: 400; }
-  p, span, label { font-size: 1rem; }
-  small, .text-sm { font-size: 0.9rem !important; }
-  .text-xs { font-size: 0.8rem !important; }
 }
 
 @layer utilities {
@@ -143,17 +131,8 @@
     background-size: 24px 24px;
   }
 
-  .tess-scrollbar::-webkit-scrollbar {
-    width: 4px;
-  }
-  .tess-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .tess-scrollbar::-webkit-scrollbar-thumb {
-    background: hsl(0 0% 82%);
-    border-radius: 999px;
-  }
-  .tess-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: hsl(0 0% 64%);
-  }
+  .tess-scrollbar::-webkit-scrollbar { width: 4px; }
+  .tess-scrollbar::-webkit-scrollbar-track { background: transparent; }
+  .tess-scrollbar::-webkit-scrollbar-thumb { background: hsl(0 0% 82%); border-radius: 999px; }
+  .tess-scrollbar::-webkit-scrollbar-thumb:hover { background: hsl(0 0% 64%); }
 }
