@@ -1,5 +1,6 @@
 import { useSquad } from '@/contexts/SquadContext';
 import { Plus, ChevronRight } from 'lucide-react';
+import tessLogo from '@/assets/tess-light-logo.svg';
 
 export function NestSidebar() {
   const { squad, getMainAgents, getSubAgents, selectedAgentId, setSelectedAgentId, addAgent } = useSquad();
@@ -10,11 +11,7 @@ export function NestSidebar() {
       {/* Logo */}
       <div className="h-14 flex items-center px-5 border-b border-border">
         <div className="flex items-center gap-2">
-          <img 
-            src={new URL('@/assets/tess-light-logo.svg', import.meta.url).href}
-            alt="TESS Logo"
-            className="h-7 w-auto"
-          />
+          <img src={tessLogo} alt="TESS" className="h-6 w-auto" />
           <span className="text-muted-foreground text-xs">/</span>
           <span className="text-muted-foreground text-xs font-medium">SQUADS</span>
         </div>
@@ -33,8 +30,7 @@ export function NestSidebar() {
       <div className="flex-1 overflow-y-auto tess-scrollbar p-4">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Hierarquia</h2>
-          <button onClick={() => addAgent(null)} className="w-6 h-6 rounded-md bg-accent text-accent-foreground flex items-center justify-center hover:opacity-90 transition-opacity">
-            
+          <button onClick={() => addAgent(null)} className="w-6 h-6 rounded-md bg-foreground text-background flex items-center justify-center hover:opacity-80 transition-opacity">
             <Plus className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -54,7 +50,7 @@ export function NestSidebar() {
                   onClick={() => setSelectedAgentId(agent.id)}
                   className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left transition-colors text-sm ${
                   selectedAgentId === agent.id ?
-                  'bg-tess-purple-light text-accent' :
+                  'bg-tess-active-light text-foreground font-semibold' :
                   'hover:bg-secondary text-foreground'}`
                   }>
                   
@@ -73,7 +69,7 @@ export function NestSidebar() {
                   onClick={() => setSelectedAgentId(sub.id)}
                   className={`w-full flex items-center gap-2 pl-8 pr-3 py-1.5 rounded-lg text-left transition-colors text-xs ${
                   selectedAgentId === sub.id ?
-                  'bg-tess-purple-light text-accent' :
+                  'bg-tess-active-light text-foreground font-medium' :
                   'hover:bg-secondary text-muted-foreground'}`
                   }>
                   

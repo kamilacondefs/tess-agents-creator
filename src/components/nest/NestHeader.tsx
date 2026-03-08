@@ -16,7 +16,7 @@ export function NestHeader() {
             placeholder="Nome do Squad"
           />
         </div>
-        <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-tess-purple-light text-accent text-xs font-medium">
+        <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-secondary text-muted-foreground text-xs font-medium border border-border">
           Draft
         </span>
       </div>
@@ -26,7 +26,7 @@ export function NestHeader() {
           <Save className="w-4 h-4" />
           Salvar
         </button>
-        <button className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg tess-gradient text-accent-foreground text-sm font-medium hover:opacity-90 transition-opacity">
+        <button className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity">
           <Play className="w-4 h-4" />
           Executar Squad
         </button>

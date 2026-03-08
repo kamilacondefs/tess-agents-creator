@@ -6,57 +6,63 @@
 
 @layer base {
   :root {
-    /* TESS AI Design System */
-    --background: 0 0% 98%;
-    --foreground: 230 25% 10%;
+    /* TESS AI Design System — Monochromatic Black & White */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 8%;
 
     --card: 0 0% 100%;
-    --card-foreground: 230 25% 10%;
+    --card-foreground: 0 0% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 230 25% 10%;
+    --popover-foreground: 0 0% 8%;
 
-    --primary: 230 25% 10%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 0 0% 8%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 5% 96%;
-    --secondary-foreground: 230 25% 10%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 8%;
 
-    --muted: 240 5% 96%;
-    --muted-foreground: 230 10% 46%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 262 83% 38%;
+    --accent: 0 0% 8%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 262 83% 38%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 8%;
 
     --radius: 0.75rem;
 
     /* Custom TESS tokens */
-    --tess-purple: 262 83% 38%;
-    --tess-purple-light: 262 60% 95%;
-    --tess-purple-mid: 262 60% 50%;
-    --tess-dark: 230 25% 10%;
+    --tess-black: 0 0% 8%;
+    --tess-gray-100: 0 0% 96%;
+    --tess-gray-200: 0 0% 90%;
+    --tess-gray-300: 0 0% 80%;
+    --tess-gray-400: 0 0% 64%;
+    --tess-gray-500: 0 0% 45%;
+    --tess-gray-600: 0 0% 32%;
+    --tess-gray-700: 0 0% 20%;
+    --tess-gray-800: 0 0% 12%;
     --tess-surface: 0 0% 100%;
     --tess-surface-elevated: 0 0% 100%;
-    --tess-border-subtle: 220 13% 93%;
+    --tess-border-subtle: 0 0% 93%;
     --tess-success: 152 69% 40%;
     --tess-warning: 38 92% 50%;
-    --tess-info: 210 100% 50%;
+    --tess-active: 0 0% 8%;
+    --tess-active-light: 0 0% 94%;
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 230 25% 10%;
-    --sidebar-primary: 262 83% 38%;
+    --sidebar-foreground: 0 0% 8%;
+    --sidebar-primary: 0 0% 8%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 262 60% 95%;
-    --sidebar-accent-foreground: 262 83% 38%;
-    --sidebar-border: 220 13% 93%;
-    --sidebar-ring: 262 83% 38%;
+    --sidebar-accent: 0 0% 94%;
+    --sidebar-accent-foreground: 0 0% 8%;
+    --sidebar-border: 0 0% 93%;
+    --sidebar-ring: 0 0% 8%;
   }
 }
 
@@ -73,11 +79,11 @@
 
 @layer utilities {
   .tess-gradient {
-    background: linear-gradient(135deg, hsl(262 83% 38%), hsl(262 60% 50%));
+    background: hsl(0 0% 8%);
   }
 
   .tess-gradient-subtle {
-    background: linear-gradient(135deg, hsl(262 60% 97%), hsl(240 5% 96%));
+    background: linear-gradient(135deg, hsl(0 0% 97%), hsl(0 0% 94%));
   }
 
   .tess-shadow-card {
@@ -89,19 +95,25 @@
   }
 
   .tess-shadow-focus {
-    box-shadow: 0 0 0 3px hsl(262 83% 38% / 0.15);
+    box-shadow: 0 0 0 3px hsl(0 0% 8% / 0.1);
   }
 
   .connection-line {
-    stroke: hsl(262 60% 50% / 0.3);
+    stroke: hsl(0 0% 80%);
     stroke-width: 2;
     fill: none;
   }
 
   .connection-line-active {
-    stroke: hsl(262 83% 38%);
+    stroke: hsl(0 0% 8%);
     stroke-width: 2;
     fill: none;
+  }
+
+  /* Dot grid pattern for canvas */
+  .tess-dot-pattern {
+    background-image: radial-gradient(circle, hsl(0 0% 82%) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 
   /* Custom scrollbar */
@@ -112,10 +124,10 @@
     background: transparent;
   }
   .tess-scrollbar::-webkit-scrollbar-thumb {
-    background: hsl(220 13% 85%);
+    background: hsl(0 0% 82%);
     border-radius: 999px;
   }
   .tess-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: hsl(220 13% 70%);
+    background: hsl(0 0% 64%);
   }
 }
