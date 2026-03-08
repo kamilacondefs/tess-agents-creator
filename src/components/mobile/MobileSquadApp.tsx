@@ -1,5 +1,5 @@
 import { useSquad } from '@/contexts/SquadContext';
-import { Plus, ChevronRight, Settings, Play, Layers, Users } from 'lucide-react';
+import { Plus, ChevronRight, Settings, Play, Layers, Users, Trash2 } from 'lucide-react';
 import tessLogo from '@/assets/tess-light-logo.svg';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
@@ -36,17 +36,14 @@ function FloatingGraphic({ className }: { className?: string }) {
 }
 
 export function MobileSquadApp() {
-  const { squad, getMainAgents, getSubAgents, selectedAgentId, setSelectedAgentId, addAgent, getSelectedAgent } = useSquad();
+  const { squad, getMainAgents, getSubAgents, selectedAgentId, setSelectedAgentId, addAgent, getSelectedAgent, updateAgent, removeAgent } = useSquad();
   const mainAgents = getMainAgents();
   const selectedAgent = getSelectedAgent();
   const [activeTab, setActiveTab] = useState<'hierarchy' | 'config'>('hierarchy');
 
   return (
     <div className="flex flex-col h-full bg-background relative overflow-hidden">
-      {/* Background pattern */}
       <TessPattern />
-
-      {/* Floating graphics */}
       <FloatingGraphic className="top-[120px] right-[-10px]" />
       <FloatingGraphic className="bottom-[200px] left-[-8px]" />
 
@@ -76,9 +73,7 @@ export function MobileSquadApp() {
         <button
           onClick={() => setActiveTab('hierarchy')}
           className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-semibold transition-colors border-b-2 ${
-            activeTab === 'hierarchy'
-              ? 'border-foreground text-foreground'
-              : 'border-transparent text-muted-foreground'
+            activeTab === 'hierarchy' ? 'border-foreground text-foreground' : 'border-transparent text-muted-foreground'
           }`}
         >
           <Layers className="w-4 h-4" />
@@ -87,9 +82,7 @@ export function MobileSquadApp() {
         <button
           onClick={() => setActiveTab('config')}
           className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-semibold transition-colors border-b-2 ${
-            activeTab === 'config'
-              ? 'border-foreground text-foreground'
-              : 'border-transparent text-muted-foreground'
+            activeTab === 'config' ? 'border-foreground text-foreground' : 'border-transparent text-muted-foreground'
           }`}
         >
           <Settings className="w-4 h-4" />
@@ -103,11 +96,7 @@ export function MobileSquadApp() {
           <div className="p-4 min-h-full">
             {mainAgents.length === 0 ? (
               <div className="flex items-center justify-center h-full min-h-[400px]">
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-center"
-                >
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-center">
                   <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center mx-auto mb-4">
                     <Layers className="w-6 h-6 text-foreground" />
                   </div>
@@ -126,7 +115,6 @@ export function MobileSquadApp() {
               </div>
             ) : (
               <div className="space-y-3">
-                {/* Add button */}
                 <button
                   onClick={() => addAgent(null)}
                   className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-dashed border-border text-sm font-semibold text-muted-foreground hover:bg-secondary transition-colors"
@@ -135,7 +123,6 @@ export function MobileSquadApp() {
                   Agente Principal
                 </button>
 
-                {/* Agent cards */}
                 {mainAgents.map(agent => {
                   const subs = getSubAgents(agent.id);
                   const role = AGENT_ROLES.find(r => r.value === agent.role);
@@ -145,21 +132,13 @@ export function MobileSquadApp() {
                     <div key={agent.id}>
                       <motion.button
                         layout
-                        onClick={() => {
-                          setSelectedAgentId(agent.id);
-                          setActiveTab('config');
-                        }}
+                        onClick={() => { setSelectedAgentId(agent.id); setActiveTab('config'); }}
                         className={`w-full text-left rounded-xl border-2 transition-all bg-card p-4 ${
-                          selectedAgentId === agent.id
-                            ? 'border-foreground tess-shadow-elevated'
-                            : 'border-border tess-shadow-card'
+                          selectedAgentId === agent.id ? 'border-foreground tess-shadow-elevated' : 'border-border tess-shadow-card'
                         }`}
                       >
                         <div className="flex items-center gap-3">
-                          <div
-                            className="w-3 h-3 rounded-full flex-shrink-0"
-                            style={{ backgroundColor: agent.color }}
-                          />
+                          <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: agent.color }} />
                           <div className="flex-1 min-w-0">
                             <p className="text-sm font-bold text-foreground truncate">{agent.name}</p>
                             <p className="text-xs text-muted-foreground mt-0.5">{role?.label}</p>
@@ -178,16 +157,21 @@ export function MobileSquadApp() {
                         )}
                       </motion.button>
 
-                      {/* Sub-agents */}
+                      {/* Add subagent button */}
+                      <button
+                        onClick={() => { addAgent(agent.id); setActiveTab('config'); }}
+                        className="ml-4 mt-1.5 flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors py-1"
+                      >
+                        <Plus className="w-3 h-3" />
+                        Subagente
+                      </button>
+
                       {subs.map(sub => {
                         const subRole = AGENT_ROLES.find(r => r.value === sub.role);
                         return (
                           <button
                             key={sub.id}
-                            onClick={() => {
-                              setSelectedAgentId(sub.id);
-                              setActiveTab('config');
-                            }}
+                            onClick={() => { setSelectedAgentId(sub.id); setActiveTab('config'); }}
                             className={`w-full text-left ml-4 mt-2 rounded-xl border p-3 transition-all bg-card ${
                               selectedAgentId === sub.id ? 'border-foreground' : 'border-border'
                             }`}
@@ -195,10 +179,7 @@ export function MobileSquadApp() {
                           >
                             <div className="flex items-center gap-2.5">
                               <ChevronRight className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
-                              <div
-                                className="w-2 h-2 rounded-full flex-shrink-0"
-                                style={{ backgroundColor: sub.color }}
-                              />
+                              <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: sub.color }} />
                               <span className="text-sm font-semibold text-foreground truncate">{sub.name}</span>
                               <span className="text-xs text-muted-foreground ml-auto">{subRole?.label}</span>
                             </div>
@@ -212,69 +193,95 @@ export function MobileSquadApp() {
             )}
           </div>
         ) : (
-          /* Config tab */
           <div className="p-4">
             {selectedAgent ? (
               <div className="space-y-5">
-                <div className="flex items-center gap-2.5 mb-3">
-                  <div className="w-4 h-4 rounded-full" style={{ backgroundColor: selectedAgent.color }} />
-                  <h3 className="text-base font-bold text-foreground">{selectedAgent.name}</h3>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: selectedAgent.color }} />
+                    <h3 className="text-base font-bold text-foreground">{selectedAgent.name}</h3>
+                  </div>
+                  <button
+                    onClick={() => { removeAgent(selectedAgent.id); setActiveTab('hierarchy'); }}
+                    className="p-1.5 rounded-lg hover:bg-secondary transition-colors"
+                  >
+                    <Trash2 className="w-4 h-4 text-muted-foreground" />
+                  </button>
                 </div>
 
                 {/* Name */}
                 <div>
-                  <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">
-                    Nome
-                  </label>
+                  <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Nome</label>
                   <input
                     type="text"
                     value={selectedAgent.name}
-                    readOnly
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-input bg-background text-sm text-foreground font-medium"
+                    onChange={e => updateAgent(selectedAgent.id, { name: e.target.value })}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-input bg-background text-sm text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-foreground/20"
                   />
                 </div>
 
                 {/* Role */}
                 <div>
-                  <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">
-                    Papel
-                  </label>
+                  <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Papel</label>
                   <div className="grid grid-cols-2 gap-1.5">
                     {AGENT_ROLES.map(r => (
-                      <div
+                      <button
                         key={r.value}
-                        className={`flex items-center gap-1.5 px-3 py-2 rounded-xl border text-xs font-semibold ${
+                        onClick={() => updateAgent(selectedAgent.id, { role: r.value })}
+                        className={`flex items-center gap-1.5 px-3 py-2 rounded-xl border text-xs font-semibold transition-colors ${
                           selectedAgent.role === r.value
                             ? 'border-foreground bg-foreground text-background'
-                            : 'border-border text-foreground'
+                            : 'border-border text-foreground hover:bg-secondary'
                         }`}
                       >
                         <span>{r.emoji}</span>
                         <span>{r.label}</span>
-                      </div>
+                      </button>
                     ))}
                   </div>
                 </div>
 
                 {/* Model */}
                 <div>
-                  <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">
-                    Modelo LLM
-                  </label>
-                  <div className="px-3.5 py-2.5 rounded-xl border border-input bg-secondary text-sm text-foreground font-medium">
-                    {LLM_MODELS.find(m => m.id === selectedAgent.llmModelId)?.name || 'N/A'}
+                  <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Modelo LLM</label>
+                  <div className="space-y-1.5">
+                    {LLM_MODELS.map(m => (
+                      <button
+                        key={m.id}
+                        onClick={() => updateAgent(selectedAgent.id, { llmModelId: m.id })}
+                        className={`w-full text-left px-3.5 py-2.5 rounded-xl border text-sm font-medium transition-colors ${
+                          selectedAgent.llmModelId === m.id
+                            ? 'border-foreground bg-foreground text-background'
+                            : 'border-border text-foreground hover:bg-secondary'
+                        }`}
+                      >
+                        {m.name}
+                      </button>
+                    ))}
                   </div>
                 </div>
 
-                {/* Prompt preview */}
+                {/* Prompt */}
                 <div>
-                  <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">
-                    Prompt de Sistema
-                  </label>
-                  <div className="px-3.5 py-2.5 rounded-xl border border-input bg-secondary text-sm text-muted-foreground h-[90px] overflow-hidden leading-relaxed">
-                    {selectedAgent.systemPrompt || 'Nenhum prompt definido...'}
-                  </div>
+                  <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Prompt de Sistema</label>
+                  <textarea
+                    value={selectedAgent.systemPrompt || ''}
+                    onChange={e => updateAgent(selectedAgent.id, { systemPrompt: e.target.value })}
+                    placeholder="Descreva o comportamento deste agente..."
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-input bg-background text-sm text-foreground h-[90px] resize-none focus:outline-none focus:ring-2 focus:ring-foreground/20"
+                  />
                 </div>
+
+                {/* Add subagent (only for main agents) */}
+                {!selectedAgent.parentId && (
+                  <button
+                    onClick={() => { addAgent(selectedAgent.id); }}
+                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-dashed border-border text-sm font-semibold text-muted-foreground hover:bg-secondary transition-colors"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Adicionar Subagente
+                  </button>
+                )}
               </div>
             ) : (
               <div className="flex items-center justify-center h-[400px]">
