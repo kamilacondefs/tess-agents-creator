@@ -7,7 +7,7 @@ import { AgentConfigPanel } from '@/components/nest/AgentConfigPanel';
 const Index = () => {
   return (
     <SquadProvider>
-      <div className="flex h-screen w-screen overflow-hidden" style={{ maxWidth: '1440px', maxHeight: '960px' }}>
+      <div className="flex h-screen w-screen overflow-hidden" style={{ maxWidth: '1920px', maxHeight: '1080px' }}>
         {/* Left Sidebar */}
         <NestSidebar />
 
