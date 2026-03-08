@@ -11,7 +11,7 @@ const Index = () => {
     <SquadProvider>
       <div className="min-h-screen bg-secondary">
         {/* Desktop Version */}
-        <div className="flex h-screen w-screen overflow-hidden" style={{ maxWidth: '1920px', maxHeight: '1080px' }}>
+        <div className="flex w-full overflow-hidden" style={{ height: '100vh' }}>
           {/* Left Sidebar */}
           <NestSidebar />
 
@@ -26,7 +26,7 @@ const Index = () => {
         </div>
 
         {/* Mobile Version */}
-        <div className="py-20 px-8" style={{ maxWidth: '1920px' }}>
+        <div className="py-20 px-8">
           <div className="text-center mb-12">
             <h2 className="text-2xl font-bold text-foreground tracking-tight">Versão Mobile</h2>
             <p className="text-sm text-muted-foreground mt-2">iPhone 16 · 393 × 852pt</p>
