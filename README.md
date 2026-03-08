@@ -17,6 +17,10 @@ A seção "Como Rodar" abaixo é para quem preferir rodar o projeto localmente.
 
 ---
 
+Aproveito para deixar o link do Figma, não há protótipo, somente as telas estáticas, sua navegação está toda aqui ao rodar os códigos. Este é o link, caso queiram ver: https://www.figma.com/design/dV8O4WFxVUXQvJvk7CmVPt/Desafio-T%C3%A9cnico---Bip-Brasil--KAMILA-CONDE---c%C3%B3pia-?node-id=2-753&t=JMSOlw0v6TVfeee8-1
+
+---
+
 ## 📋 Índice
 
 - [Como Rodar](#-como-rodar)
