@@ -9,16 +9,9 @@ export function NestSidebar() {
     <div className="w-[260px] border-r border-border bg-card flex flex-col h-full">
       {/* Logo */}
       <div className="h-14 flex items-center px-5 border-b border-border">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg tess-gradient flex items-center justify-center">
-            <Bot className="w-4 h-4 text-accent-foreground" />
-          </div>
-          <span className="font-semibold text-sm tracking-tight text-foreground">TESS</span>
-          <span className="text-muted-foreground text-xs">/</span>
-          <span className="text-muted-foreground text-xs font-medium">SQUADS
-
-          </span>
-        </div>
+        <img src={new URL('/src/assets/tess-logo.svg', import.meta.url).href} alt="TESS" className="h-8" />
+        <span className="text-muted-foreground text-xs ml-2">/</span>
+        <span className="text-muted-foreground text-xs font-medium ml-2">SQUADS</span>
       </div>
 
       {/* Squad Info */}
