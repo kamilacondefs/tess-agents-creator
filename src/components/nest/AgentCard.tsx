@@ -29,8 +29,8 @@ export function AgentCard({ agent, isMain = false }: AgentCardProps) {
           isMain ? 'w-[280px]' : 'w-[240px]'
         } ${
           isSelected
-            ? 'border-accent tess-shadow-elevated'
-            : 'border-border tess-shadow-card hover:border-muted-foreground/30'
+            ? 'border-foreground tess-shadow-elevated'
+            : 'border-border tess-shadow-card hover:border-tess-gray-300'
         } bg-card`}
       >
         {/* Color accent bar */}
@@ -83,7 +83,7 @@ export function AgentCard({ agent, isMain = false }: AgentCardProps) {
               </div>
               <button
                 onClick={e => { e.stopPropagation(); addAgent(agent.id); }}
-                className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-tess-purple-light text-accent text-xs font-medium hover:opacity-80 transition-opacity"
+                className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-secondary text-foreground text-xs font-medium hover:bg-tess-gray-200 transition-colors border border-border"
               >
                 <Plus className="w-3 h-3" />
                 Sub
@@ -113,7 +113,7 @@ export function AgentCard({ agent, isMain = false }: AgentCardProps) {
                 <div className="w-px h-3 bg-border -mt-2 mb-1" />
                 {/* Flow type indicator */}
                 <div className="mb-1">
-                  <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-accent/10 text-[10px] font-medium text-accent">
+                  <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-secondary text-[10px] font-medium text-foreground border border-border">
                     {FLOW_TYPES.find(f => f.type === sub.flowType)?.label}
                   </span>
                 </div>

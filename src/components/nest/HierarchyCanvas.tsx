@@ -10,13 +10,7 @@ export function HierarchyCanvas() {
   return (
     <div className="flex-1 bg-background overflow-auto tess-scrollbar">
       {/* Background pattern */}
-      <div
-        className="min-h-full p-8"
-        style={{
-          backgroundImage: `radial-gradient(circle, hsl(220 13% 91% / 0.5) 1px, transparent 1px)`,
-          backgroundSize: '24px 24px',
-        }}
-      >
+      <div className="min-h-full p-8 tess-dot-pattern">
         {mainAgents.length === 0 ? (
           /* Empty state */
           <div className="flex items-center justify-center h-full min-h-[600px]">
@@ -25,8 +19,8 @@ export function HierarchyCanvas() {
               animate={{ opacity: 1, y: 0 }}
               className="text-center"
             >
-              <div className="w-16 h-16 rounded-2xl tess-gradient-subtle flex items-center justify-center mx-auto mb-4">
-                <Layers className="w-7 h-7 text-accent" />
+              <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center mx-auto mb-4">
+                <Layers className="w-7 h-7 text-foreground" />
               </div>
               <h2 className="text-lg font-semibold text-foreground mb-1">Monte seu Squad</h2>
               <p className="text-sm text-muted-foreground mb-6 max-w-sm">
@@ -34,7 +28,7 @@ export function HierarchyCanvas() {
               </p>
               <button
                 onClick={() => addAgent(null)}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl tess-gradient text-accent-foreground text-sm font-medium hover:opacity-90 transition-opacity"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity"
               >
                 <Plus className="w-4 h-4" />
                 Adicionar Agente Principal

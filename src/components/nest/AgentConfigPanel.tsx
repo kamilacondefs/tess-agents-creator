@@ -67,7 +67,7 @@ export function AgentConfigPanel() {
                 onClick={() => updateAgent(agent.id, { role: r.value, roleLabel: r.label })}
                 className={`flex items-center gap-1.5 px-2.5 py-2 rounded-lg border text-xs font-medium transition-colors ${
                   agent.role === r.value
-                    ? 'border-accent bg-tess-purple-light text-accent'
+                    ? 'border-foreground bg-foreground text-background'
                     : 'border-border bg-background text-foreground hover:bg-secondary'
                 }`}
               >
@@ -109,17 +109,19 @@ export function AgentConfigPanel() {
                   onClick={() => updateAgent(agent.id, { flowType: f.type })}
                   className={`w-full flex items-start gap-2.5 px-3 py-2.5 rounded-lg border text-left transition-colors ${
                     agent.flowType === f.type
-                      ? 'border-accent bg-tess-purple-light'
+                      ? 'border-foreground bg-foreground text-background'
                       : 'border-border bg-background hover:bg-secondary'
                   }`}
                 >
                   <div>
                     <p className={`text-xs font-semibold ${
-                      agent.flowType === f.type ? 'text-accent' : 'text-foreground'
+                      agent.flowType === f.type ? 'text-background' : 'text-foreground'
                     }`}>
                       {f.label}
                     </p>
-                    <p className="text-[11px] text-muted-foreground">{f.description}</p>
+                    <p className={`text-[11px] ${
+                      agent.flowType === f.type ? 'text-background/70' : 'text-muted-foreground'
+                    }`}>{f.description}</p>
                   </div>
                 </button>
               ))}
