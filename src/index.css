@@ -1,43 +1,58 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Kamerik205';
+  src: url('/src/assets/fonts/Kamerik_205_Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Kamerik205';
+  src: url('/src/assets/fonts/Kamerik_205_Book.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Kamerik205';
+  src: url('/src/assets/fonts/Kamerik_205_Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Kamerik205';
+  src: url('/src/assets/fonts/Kamerik_205_Heavy.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
 @layer base {
   :root {
-    /* TESS AI Design System — Monochromatic Black & White */
     --background: 0 0% 100%;
     --foreground: 0 0% 8%;
-
     --card: 0 0% 100%;
     --card-foreground: 0 0% 8%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 8%;
-
     --primary: 0 0% 8%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 0 0% 96%;
     --secondary-foreground: 0 0% 8%;
-
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
-
     --accent: 0 0% 8%;
     --accent-foreground: 0 0% 100%;
-
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-
     --border: 0 0% 90%;
     --input: 0 0% 90%;
     --ring: 0 0% 8%;
-
     --radius: 0.75rem;
 
-    /* Custom TESS tokens */
     --tess-black: 0 0% 8%;
     --tess-gray-100: 0 0% 96%;
     --tess-gray-200: 0 0% 90%;
@@ -63,6 +78,8 @@
     --sidebar-accent-foreground: 0 0% 8%;
     --sidebar-border: 0 0% 93%;
     --sidebar-ring: 0 0% 8%;
+
+    font-size: 18px;
   }
 }
 
@@ -72,9 +89,20 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Kamerik205', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.6;
   }
+
+  h1 { font-size: 2rem; font-weight: 700; }
+  h2 { font-size: 1.5rem; font-weight: 700; }
+  h3 { font-size: 1.25rem; font-weight: 700; }
+  h4 { font-size: 1.1rem; font-weight: 400; }
+  p, span, label { font-size: 1rem; }
+  small, .text-sm { font-size: 0.9rem !important; }
+  .text-xs { font-size: 0.8rem !important; }
 }
 
 @layer utilities {
@@ -110,13 +138,11 @@
     fill: none;
   }
 
-  /* Dot grid pattern for canvas */
   .tess-dot-pattern {
     background-image: radial-gradient(circle, hsl(0 0% 82%) 1px, transparent 1px);
     background-size: 24px 24px;
   }
 
-  /* Custom scrollbar */
   .tess-scrollbar::-webkit-scrollbar {
     width: 4px;
   }
