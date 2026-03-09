@@ -1,8 +1,23 @@
 import { useSquad } from '@/contexts/SquadContext';
 import { Save, Play, MoreHorizontal } from 'lucide-react';
+import { toast } from 'sonner';
 
 export function NestHeader() {
   const { squad, updateSquad } = useSquad();
+
+  const handleExecutar = () => {
+    if (squad.agents.length === 0) {
+      toast.error('Adicione pelo menos um agente antes de executar.');
+      return;
+    }
+    toast.success('Squad enviado para execução!', {
+      description: `${squad.agents.length} agente${squad.agents.length !== 1 ? 's' : ''} inicializado${squad.agents.length !== 1 ? 's' : ''}.`,
+    });
+  };
+
+  const handleSalvar = () => {
+    toast.success('Squad salvo com sucesso!');
+  };
 
   return (
     <header className="h-14 border-b border-border bg-card flex items-center justify-between px-6">
@@ -22,11 +37,17 @@ export function NestHeader() {
       </div>
 
       <div className="flex items-center gap-2">
-        <button className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-secondary transition-colors">
+        <button
+          onClick={handleSalvar}
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-secondary transition-colors"
+        >
           <Save className="w-4 h-4" />
           Salvar
         </button>
-        <button className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity">
+        <button
+          onClick={handleExecutar}
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity"
+        >
           <Play className="w-4 h-4" />
           Executar Squad
         </button>
